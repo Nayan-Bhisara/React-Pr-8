@@ -1,32 +1,22 @@
 import { useEffect, useState } from "react";
-import './add.css'
+import "./add.css";
 import Header from "../components/header";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 const Edit = () => {
-    const navigate = useNavigate()
-    const location = useLocation()
-    let editdata = location.state
-    useEffect(()=>{
-       setname(editdata.name)
-       setemail(editdata.email)
-       setpassword(editdata.password)
-       setgender(editdata.gender)
-       setallcourse(editdata.course)
-       setdate(editdata.date)
-       setstatus(editdata.status)
-    },[editdata])
-    // let location = useLocation()
-    // console.log(location);
-    // let deletestate = location.state ? location.state.delete : []
-    // useEffect(()=>{
-    //    if(deletestate && Array.isArray(deletestate))
-    //     {
-    //         setrecord(deletestate)
-    //         localStorage.setItem('users',JSON.stringify(deletestate))
-    //     }
-    // },[deletestate])
+  const navigate = useNavigate();
+  const location = useLocation();
+  let editdata = location.state;
+  useEffect(() => {
+    setname(editdata.name);
+    setemail(editdata.email);
+    setpassword(editdata.password);
+    setgender(editdata.gender);
+    setallcourse(editdata.course);
+    setdate(editdata.date);
+    setstatus(editdata.status);
+  }, [editdata]);
   const Course = [
     "Full Stack Devloper",
     "Flutter Devloper",
@@ -46,8 +36,8 @@ const Edit = () => {
     : [];
 
   const [record, setrecord] = useState(data);
-  const [status,setstatus] = useState("")
-  const [showpassword,setshowpassword] = useState(true)
+  const [status, setstatus] = useState("");
+  const [showpassword, setshowpassword] = useState(true);
   const handlechangeCourse = (course, checked) => {
     let all = [...allcourse];
     if (checked) {
@@ -59,44 +49,28 @@ const Edit = () => {
   };
   const handlesubmit = (e) => {
     e.preventDefault();
-    // let obj = {
-    //   id: Math.floor(Math.random() * 1000),
-    //   name: name,
-    //   email: email,
-    //   password: password,
-    //   gender: gender,
-    //   course: allcourse,
-    //   date: date,
-    // };
-    let up = record.map((val)=>{
-        if(val.id === editdata.id){
-            val.name = name,
-            val.email = email,
-            val.password = password,
-            val.gender = gender,
-            val.course = allcourse,
-            val.date = date,
-            val.status = status
-        }
-        return val
-    })
-    // let allfield = [...record, obj];
+    let up = record.map((val) => {
+      if (val.id === editdata.id) {
+        (val.name = name),
+          (val.email = email),
+          (val.password = password),
+          (val.gender = gender),
+          (val.course = allcourse),
+          (val.date = date),
+          (val.status = status);
+      }
+      return val;
+    });
     localStorage.setItem("User", JSON.stringify(up));
     setrecord(up);
     console.log(record);
     setTimeout(() => {
-        navigate('/')
+      navigate("/");
     }, 2000);
-    // setname("");
-    // setemail("");
-    // setpassword("");
-    // setgender("");
-    // setallcourse([]);
-    // setdate("");
   };
   const handleclick = () => {
-    setshowpassword(!showpassword)
-  }
+    setshowpassword(!showpassword);
+  };
   return (
     <>
       <Header />
@@ -105,7 +79,7 @@ const Edit = () => {
         <div className="row">
           <div className="col-12">
             <div className="d-flex justify-content-end">
-              <Link to={`/view`} state={{data : record}}>
+              <Link to={`/view`} state={{ data: record }}>
                 <button className="btn btn-success btn-sm mb-2">View</button>
               </Link>
             </div>
@@ -147,9 +121,11 @@ const Edit = () => {
                   value={password}
                 />
                 <div className="eye-icon">
-                    {
-                        showpassword ? <FaEye onClick={handleclick}/> : <FaEyeSlash onClick={handleclick} />
-                    }
+                  {showpassword ? (
+                    <FaEye onClick={handleclick} />
+                  ) : (
+                    <FaEyeSlash onClick={handleclick} />
+                  )}
                 </div>
               </div>
               <div className="mb-3">
@@ -235,20 +211,25 @@ const Edit = () => {
               </div>
               <div className="mb-3">
                 <label>Status</label>
-                <select className="form-control" onChange={(e) => setstatus(e.target.value)}>
+                <select
+                  className="form-control"
+                  onChange={(e) => setstatus(e.target.value)}
+                >
                   <option value="">--Select Status---</option>
                   <option value="UnActive">UnActive</option>
                   <option value="Active">Active</option>
                 </select>
               </div>
-             <div className="mb-3 d-flex align-items-center">
-             <button type="submit" className="btn btn-primary">
-               Edit
-              </button>
-              <Link to={`/view`}>
-                <button className="btn btn-success btn-sm mb-2 p-2 ms-2">Cancel</button>
-              </Link>
-             </div>
+              <div className="mb-3 d-flex align-items-center">
+                <button type="submit" className="btn btn-primary">
+                  Edit
+                </button>
+                <Link to={`/view`}>
+                  <button className="btn btn-success btn-sm mb-2 p-2 ms-2">
+                    Cancel
+                  </button>
+                </Link>
+              </div>
             </form>
           </div>
         </div>

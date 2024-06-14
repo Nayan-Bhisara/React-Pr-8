@@ -1,20 +1,10 @@
 import { useEffect, useState } from "react";
-import './add.css'
+import "./add.css";
 import Header from "../components/header";
 import { Link, useLocation } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 const Add = () => {
-    // let location = useLocation()
-    // console.log(location);
-    // let deletestate = location.state ? location.state.delete : []
-    // useEffect(()=>{
-    //    if(deletestate && Array.isArray(deletestate))
-    //     {
-    //         setrecord(deletestate)
-    //         localStorage.setItem('users',JSON.stringify(deletestate))
-    //     }
-    // },[deletestate])
   const Course = [
     "Full Stack Devloper",
     "Flutter Devloper",
@@ -33,8 +23,8 @@ const Add = () => {
     ? JSON.parse(localStorage.getItem("User"))
     : [];
   const [record, setrecord] = useState(data);
-  const [status,setstatus] = useState("")
-  const [showpassword,setshowpassword] = useState(true)
+  const [status, setstatus] = useState("");
+  const [showpassword, setshowpassword] = useState(true);
   const handlechangeCourse = (course, checked) => {
     let all = [...allcourse];
     if (checked) {
@@ -54,7 +44,7 @@ const Add = () => {
       gender: gender,
       course: allcourse,
       date: date,
-      status : status
+      status: status,
     };
     let allfield = [...record, obj];
     localStorage.setItem("User", JSON.stringify(allfield));
@@ -65,11 +55,11 @@ const Add = () => {
     setgender("");
     setallcourse([]);
     setdate("");
-    setstatus("")
+    setstatus("");
   };
   const handleclick = () => {
-    setshowpassword(!showpassword)
-  }
+    setshowpassword(!showpassword);
+  };
   return (
     <>
       <Header />
@@ -78,7 +68,7 @@ const Add = () => {
         <div className="row">
           <div className="col-8">
             <div className="d-flex justify-content-end">
-              <Link to={`/view`} state={{data : record}}>
+              <Link to={`/view`} state={{ data: record }}>
                 <button className="btn btn-success btn-sm mb-2">View</button>
               </Link>
             </div>
@@ -120,9 +110,11 @@ const Add = () => {
                   value={password}
                 />
                 <div className="eye-icon">
-                    {
-                        showpassword ? <FaEye onClick={handleclick}/> : <FaEyeSlash onClick={handleclick} />
-                    }
+                  {showpassword ? (
+                    <FaEye onClick={handleclick} />
+                  ) : (
+                    <FaEyeSlash onClick={handleclick} />
+                  )}
                 </div>
               </div>
               <div className="mb-3">
@@ -208,7 +200,11 @@ const Add = () => {
               </div>
               <div className="mb-3">
                 <label>Status</label>
-                <select className="form-control" onChange={(e) => setstatus(e.target.value)} value={status}>
+                <select
+                  className="form-control"
+                  onChange={(e) => setstatus(e.target.value)}
+                  value={status}
+                >
                   <option value="">--Select Status---</option>
                   <option value="UnActive">UnActive</option>
                   <option value="Active">Active</option>
